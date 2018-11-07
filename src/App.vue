@@ -3,13 +3,14 @@
     <h1>Todos</h1>
     <input type="text" @keydown.enter="addTodo()" v-model="todo.title" placeholder="Todo title"> <button type="button" @click="addTodo()">Add</button>
     <ul>
-      <li v-for="item in todoList" :key="item.id">{{ item.title }}</li>
+      <li v-for="item in TODOS" :key="item.id">{{ item.title }}</li>
     </ul>
   </div>
 </template>
 
 <script>
 import HelloWorld from "./components/HelloWorld";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -28,9 +29,10 @@ export default {
     this.$store.dispatch("GET_TODO");
   },
   computed: {
-    todoList() {
+    ...mapGetters(["TODOS"])
+    /*todoList() {
       return this.$store.getters.TODOS;
-    }
+    }*/
   },
   methods: {
     addTodo() {
