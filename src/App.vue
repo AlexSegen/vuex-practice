@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <h1>Todos</h1>
+    <input type="text" @keydown.enter="addTodo()" v-model="todo.title" placeholder="Todo title"> <button type="button" @click="addTodo()">Add</button>
     <ul>
-    <li>Hola</li>
+      <li v-for="item in todoList" :key="item.id">{{ item.title }}</li>
     </ul>
   </div>
 </template>
@@ -14,6 +15,31 @@ export default {
   name: "App",
   components: {
     HelloWorld
+  },
+  data() {
+    return {
+      todo: {
+        title: "",
+        completed: false
+      }
+    };
+  },
+  mounted() {
+    this.$store.dispatch("GET_TODO");
+  },
+  computed: {
+    todoList() {
+      return this.$store.getters.TODOS;
+    }
+  },
+  methods: {
+    addTodo() {
+      this.$store.dispatch("SAVE_TODO", this.todo);
+      this.todo = {
+        title: "",
+        completed: false
+      };
+    }
   }
 };
 </script>
