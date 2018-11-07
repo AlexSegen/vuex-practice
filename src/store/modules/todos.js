@@ -29,7 +29,10 @@ const actions = {
   },
   DELETE_TODO: async (context, payload) => {
     let { data } = await todoServices.delete(payload.id);
-    context.commit("REMOVE_TODO", payload.index);
+    context.commit(
+      "REMOVE_TODO",
+      state.todos.findIndex(find => find.id == payload.id)
+    );
   }
 };
 export default {

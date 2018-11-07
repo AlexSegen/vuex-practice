@@ -22,7 +22,7 @@
           {{ item.title }}
           <button
             class="btn badge badge-danger badge-pill"
-            @click="deleteTodo(item.id, index);"
+            @click="deleteTodo(item);"
           >
             X
           </button>
@@ -62,11 +62,7 @@ export default {
         completed: false
       };
     },
-    deleteTodo(id, index) {
-      let payload = {
-        id: id,
-        index: index
-      };
+    deleteTodo(payload) {
       this.$store.dispatch("DELETE_TODO", payload);
     }
   }
