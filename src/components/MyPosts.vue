@@ -17,7 +17,7 @@
           <div class="card-footer">
             <button
               class="btn badge badge-danger badge-pill"
-              @click="deletePost(item.id, index);"
+              @click="deletePost(item);"
             >
               X
             </button>
@@ -55,11 +55,7 @@ export default {
         body: ""
       };
     },
-    deletePost(id, index) {
-      let payload = {
-        id: id,
-        index: index
-      };
+    deletePost(payload) {
       this.$store.dispatch("DELETE_POST", payload);
     }
   }

@@ -29,7 +29,10 @@ const actions = {
   },
   DELETE_POST: async (context, payload) => {
     let { data } = await postServices.delete(payload.id);
-    context.commit("REMOVE_POST", payload.index);
+    context.commit(
+      "REMOVE_POST",
+      state.posts.findIndex(find => find.id == payload.id)
+    );
   }
 };
 export default {
