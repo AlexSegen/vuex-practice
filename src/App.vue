@@ -6,7 +6,10 @@
         <h1>Todos</h1>
         <input type="text" @keydown.enter="addTodo()" v-model="todo.title" placeholder="Todo title"> <button type="button" @click="addTodo()">Add</button>
         <ul class="list-group mt-3">
-          <li v-for="(item, index) in TODOS" :key="item.id" class="list-group-item d-flex justify-content-between align-items-center">
+          <li v-if="TODOS && TODOS.length == 0">
+          There are not todos. You can add a new one!
+          </li>
+          <li v-else v-for="(item, index) in TODOS" :key="item.id" class="list-group-item d-flex justify-content-between align-items-center">
             {{ item.title }}
             <button class="btn badge badge-danger badge-pill" @click="deleteTodo(item.id, index)">X</button>
           </li>
@@ -28,7 +31,7 @@
                 {{ item.body }}
               </div>
               <div class="card-footer">
-              <button @click="deletePost(item.id, index)">X</button>
+              <button class="btn badge badge-danger badge-pill" @click="deletePost(item.id, index)">X</button>
               </div>
             </div>
           </li>

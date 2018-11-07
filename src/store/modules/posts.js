@@ -25,7 +25,7 @@ const actions = {
   },
   SAVE_POST: async (context, payload) => {
     let { data } = await postServices.post(payload);
-    context.commit("ADD_POST", payload);
+    context.commit("ADD_POST", data);
   },
   DELETE_POST: async (context, payload) => {
     let { data } = await postServices.delete(payload.id);

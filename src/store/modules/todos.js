@@ -25,7 +25,7 @@ const actions = {
   },
   SAVE_TODO: async (context, payload) => {
     let { data } = await todoServices.post(payload);
-    context.commit("ADD_TODO", payload);
+    context.commit("ADD_TODO", data);
   },
   DELETE_TODO: async (context, payload) => {
     let { data } = await todoServices.delete(payload.id);
