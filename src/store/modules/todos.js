@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import todoServices from "@/services/todo.services";
 const state = {
   todos: null
 };
@@ -18,15 +17,11 @@ const mutations = {
 };
 const actions = {
   GET_TODO: async (context, payload) => {
-    let { data } = await axios.get(
-      "https://jsonplaceholder.typicode.com/todos"
-    );
+    let { data } = await todoServices.getAll();
     context.commit("SET_TODO", data);
   },
   SAVE_TODO: async (context, payload) => {
-    let { data } = await axios.post(
-      "https://jsonplaceholder.typicode.com/todos"
-    );
+    let { data } = await todoServices.post(payload);
     context.commit("ADD_TODO", payload);
   }
 };
