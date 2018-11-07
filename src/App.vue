@@ -1,35 +1,66 @@
 <template>
   <div id="app">
-    <h1>Todos</h1>
-    <input type="text" @keydown.enter="addTodo()" v-model="todo.title" placeholder="Todo title"> <button type="button" @click="addTodo()">Add</button>
-    <ul>
-      <li v-for="item in TODOS" :key="item.id">{{ item.title }}</li>
-    </ul>
+  <div class="container">
+  <div class="row">
+      <div class="col-md-6">
+        <h1>Todos</h1>
+        <input type="text" @keydown.enter="addTodo()" v-model="todo.title" placeholder="Todo title"> <button type="button" @click="addTodo()">Add</button>
+        <ul>
+          <li v-for="item in TODOS" :key="item.id">{{ item.title }}</li>
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <h1>Posts</h1>
+        <input type="text" v-model="post.title" placeholder="Post title">
+        <button type="button" @click="addPost()">Add</button><br>
+        <textarea cols="30" rows="2" v-model="post.body" placeholder="Post body"></textarea>
+        <ul>
+          <li v-for="item in POSTS" :key="item.id">
+            <div class="card">
+              <div class="card-header">
+                {{ item.title }}
+              </div>
+              <div class="card-body">
+                {{ item.body }}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+  </div>
+  
+  
+  </div>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import { mapGetters } from "vuex";
 
 export default {
   name: "App",
-  components: {
-    HelloWorld
-  },
+  components: {},
   data() {
     return {
       todo: {
         title: "",
         completed: false
+      },
+      post: {
+        title: "",
+        body: ""
       }
     };
   },
   mounted() {
     this.$store.dispatch("GET_TODO");
+    this.$store.dispatch("GET_POST");
   },
   computed: {
-    ...mapGetters(["TODOS"])
+    ...mapGetters(["TODOS", "POSTS"])
     /*todoList() {
       return this.$store.getters.TODOS;
     }*/
@@ -40,6 +71,13 @@ export default {
       this.todo = {
         title: "",
         completed: false
+      };
+    },
+    addPost() {
+      this.$store.dispatch("SAVE_POST", this.post);
+      this.post = {
+        title: "",
+        body: ""
       };
     }
   }
@@ -52,7 +90,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  max-width: 400px;
-  margin: 30px auto;
 }
 </style>

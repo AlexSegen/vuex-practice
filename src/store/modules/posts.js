@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import postServices from "@/services/post.services";
 const state = {
   posts: null
 };
@@ -8,17 +7,22 @@ const getters = {
     return state.posts;
   }
 };
-const mutations = {};
+const mutations = {
+  SET_POST: (state, payload) => {
+    state.posts = payload;
+  },
+  ADD_POST: (state, payload) => {
+    state.posts.push(payload);
+  }
+};
 const actions = {
-  GET_POSTS({ commit }) {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts/")
-      .then(response => {
-        this.state.posts = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  GET_POST: async (context, payload) => {
+    let { data } = await postServices.getAll();
+    context.commit("SET_POST", data);
+  },
+  SAVE_POST: async (context, payload) => {
+    let { data } = await postServices.post(payload);
+    context.commit("ADD_POST", payload);
   }
 };
 export default {
