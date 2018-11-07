@@ -13,6 +13,9 @@ const mutations = {
   },
   ADD_TODO: (state, payload) => {
     state.todos.push(payload);
+  },
+  REMOVE_TODO: (state, payload) => {
+    state.todos.splice(payload, 1);
   }
 };
 const actions = {
@@ -23,6 +26,10 @@ const actions = {
   SAVE_TODO: async (context, payload) => {
     let { data } = await todoServices.post(payload);
     context.commit("ADD_TODO", payload);
+  },
+  DELETE_TODO: async (context, payload) => {
+    let { data } = await todoServices.delete(payload.id);
+    context.commit("REMOVE_TODO", payload.index);
   }
 };
 export default {

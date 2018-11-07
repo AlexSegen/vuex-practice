@@ -13,6 +13,9 @@ const mutations = {
   },
   ADD_POST: (state, payload) => {
     state.posts.push(payload);
+  },
+  REMOVE_POST: (state, payload) => {
+    state.posts.splice(payload, 1);
   }
 };
 const actions = {
@@ -23,6 +26,10 @@ const actions = {
   SAVE_POST: async (context, payload) => {
     let { data } = await postServices.post(payload);
     context.commit("ADD_POST", payload);
+  },
+  DELETE_POST: async (context, payload) => {
+    let { data } = await postServices.delete(payload.id);
+    context.commit("REMOVE_POST", payload.index);
   }
 };
 export default {

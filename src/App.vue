@@ -5,8 +5,11 @@
       <div class="col-md-6">
         <h1>Todos</h1>
         <input type="text" @keydown.enter="addTodo()" v-model="todo.title" placeholder="Todo title"> <button type="button" @click="addTodo()">Add</button>
-        <ul>
-          <li v-for="item in TODOS" :key="item.id">{{ item.title }}</li>
+        <ul class="list-group mt-3">
+          <li v-for="(item, index) in TODOS" :key="item.id" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ item.title }}
+            <button class="btn badge badge-danger badge-pill" @click="deleteTodo(item.id, index)">X</button>
+          </li>
         </ul>
       </div>
 
@@ -15,14 +18,17 @@
         <input type="text" v-model="post.title" placeholder="Post title">
         <button type="button" @click="addPost()">Add</button><br>
         <textarea cols="30" rows="2" v-model="post.body" placeholder="Post body"></textarea>
-        <ul>
-          <li v-for="item in POSTS" :key="item.id">
+        <ul class="list-unstyled">
+          <li class="mb-3" v-for="(item, index) in POSTS" :key="item.id">
             <div class="card">
               <div class="card-header">
                 {{ item.title }}
               </div>
               <div class="card-body">
                 {{ item.body }}
+              </div>
+              <div class="card-footer">
+              <button @click="deletePost(item.id, index)">X</button>
               </div>
             </div>
           </li>
@@ -73,12 +79,26 @@ export default {
         completed: false
       };
     },
+    deleteTodo(id, index) {
+      let payload = {
+        id: id,
+        index: index
+      };
+      this.$store.dispatch("DELETE_TODO", payload);
+    },
     addPost() {
       this.$store.dispatch("SAVE_POST", this.post);
       this.post = {
         title: "",
         body: ""
       };
+    },
+    deletePost(id, index) {
+      let payload = {
+        id: id,
+        index: index
+      };
+      this.$store.dispatch("DELETE_POST", payload);
     }
   }
 };

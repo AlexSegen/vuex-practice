@@ -9,5 +9,8 @@ export default {
   },
   post(data) {
     return axios.post(RESOURCE_NAME, data);
+  },
+  delete(id) {
+    return axios.delete(RESOURCE_NAME + "/" + id);
   }
 };
