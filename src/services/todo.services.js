@@ -13,5 +13,8 @@ export default {
   },
   delete(id) {
     return axios.delete(RESOURCE_NAME + "/" + id);
+  },
+  put(id, data) {
+    return axios.put(RESOURCE_NAME + "/" + id, data);
   }
 };
