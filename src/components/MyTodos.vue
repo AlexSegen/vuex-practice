@@ -15,7 +15,7 @@
         </li>
         <li
           v-else
-          v-for="(item, index) in TODOS"
+          v-for="item in TODOS"
           :key="item.id"
           class="list-group-item d-flex justify-content-between align-items-center"
         >
