@@ -1,6 +1,6 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
-//axios.defaults.baseURL = "http://localhost:3001";
+//axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
+axios.defaults.baseURL = "http://localhost:3001";
 
 const RESOURCE_NAME = "/todos";
 

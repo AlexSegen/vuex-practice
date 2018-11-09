@@ -65,7 +65,8 @@ export default {
     deleteTodo(payload) {
       this.$store.dispatch("DELETE_TODO", payload);
     }
-  }
+  },
+  exportExcel() {}
 };
 </script>
 

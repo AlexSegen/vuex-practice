@@ -2,7 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
 import App from "./App";
+import router from "./router.js";
 import { store } from "./store";
+
+import JsonExcel from "vue-json-excel";
+
+Vue.component("downloadExcel", JsonExcel);
 
 Vue.config.productionTip = false;
 
@@ -10,6 +15,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: "#app",
   store,
-  components: { App },
-  template: "<App/>"
+  router,
+  template: "<App/>",
+  components: { App }
 });
